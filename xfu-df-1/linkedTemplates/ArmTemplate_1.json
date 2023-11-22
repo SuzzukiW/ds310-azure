@@ -13,110 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/HW6_DF')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "NHTSA_SQL_Data",
-								"type": "DatasetReference"
-							},
-							"name": "NHTSATXT"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "NHTSA_TXT_Sink",
-								"type": "DatasetReference"
-							},
-							"name": "Sink"
-						}
-					],
-					"transformations": [
-						{
-							"name": "Filter"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          CMPLID as integer,",
-						"          ODINO as string,",
-						"          MFR_NAME as string,",
-						"          MAKETXT as string,",
-						"          MODELTXT as string,",
-						"          YEARTXT as string,",
-						"          CRASH as string,",
-						"          FAILDATE as date,",
-						"          FIRE as string,",
-						"          INJURED as integer,",
-						"          DEATHS as integer,",
-						"          COMPDESC as string,",
-						"          CITY as string,",
-						"          STATE as string,",
-						"          VIN as string,",
-						"          DATEA as date,",
-						"          LDATE as date,",
-						"          MILES as integer,",
-						"          OCCURENCES as integer,",
-						"          CDESCR as string,",
-						"          CMPL_TYPE as string,",
-						"          POLICE_RPT_YN as string,",
-						"          PURCH_DT as date,",
-						"          ORIG_OWNER_YN as string,",
-						"          ANTI_BRAKES_YN as string,",
-						"          CRUISE_CONT_YN as string,",
-						"          NUM_CYLS as integer,",
-						"          DRIVE_TRAIN as string,",
-						"          FUEL_SYS as string,",
-						"          FUEL_TYPE as string,",
-						"          TRANS_TYPE as string,",
-						"          VEH_SPEED as integer,",
-						"          DOT as string,",
-						"          TIRE_SIZE as string,",
-						"          LOC_OF_TIRE as string,",
-						"          TIRE_FAIL_TYPE as string,",
-						"          ORIG_EQUIP_YN as string,",
-						"          MANUF_DT as date,",
-						"          SEAT_TYPE as string,",
-						"          RESTRAINT_TYPE as string,",
-						"          DEALER_NAME as string,",
-						"          DEALER_TEL as string,",
-						"          DEALER_CITY as string,",
-						"          DEALER_STATE as string,",
-						"          DEALER_ZIP as string,",
-						"          PROD_TYPE as string,",
-						"          REPAIRED_YN as string,",
-						"          MEDICAL_ATTN as string,",
-						"          VEHICLES_TOWED_YN as string",
-						"     ),",
-						"     allowSchemaDrift: false,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> NHTSATXT",
-						"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
-						"Filter sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('key',",
-						"          0,",
-						"          MFR_NAME",
-						"     )) ~> Sink"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/HW6')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -158,9 +54,7 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/HW6_DF')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/TXTtoSQLComplaints')]",
