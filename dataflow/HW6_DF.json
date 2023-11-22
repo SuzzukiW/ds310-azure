@@ -86,7 +86,7 @@
 				"Filter sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     rowUrlColumn:'MFR_NAME',",
+				"     filePattern:'',",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
