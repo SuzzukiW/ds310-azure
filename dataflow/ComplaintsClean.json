@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "SQLData",
+						"referenceName": "NHTSA_SQL_Data",
 						"type": "DatasetReference"
 					},
 					"name": "Sink",

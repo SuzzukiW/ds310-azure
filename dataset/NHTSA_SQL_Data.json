@@ -1,5 +1,5 @@
 {
-	"name": "SQLData",
+	"name": "NHTSA_SQL_Data",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",

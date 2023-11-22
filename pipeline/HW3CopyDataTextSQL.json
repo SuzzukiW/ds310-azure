@@ -593,7 +593,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SQLData",
+						"referenceName": "NHTSA_SQL_Data",
 						"type": "DatasetReference"
 					}
 				]

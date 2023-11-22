@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "SQLData",
+						"referenceName": "NHTSA_SQL_Data",
 						"type": "DatasetReference"
 					},
 					"name": "NHTSATXT"
