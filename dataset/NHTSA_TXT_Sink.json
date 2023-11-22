@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "@concat('hw6output/', $CleanMFR_NAME, '.parquet')",
+				"fileName": "nhtsatxt.parquet",
 				"fileSystem": "hw6output"
 			},
 			"compressionCodec": "snappy"
