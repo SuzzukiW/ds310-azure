@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@{concat('MFR_NAME', '.parquet')}",
+					"value": "@{concat(MFR_NAME, '.parquet')}\n",
 					"type": "Expression"
 				},
 				"fileSystem": "hw6output1"
