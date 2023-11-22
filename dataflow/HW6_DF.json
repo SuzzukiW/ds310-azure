@@ -24,9 +24,6 @@
 			"transformations": [
 				{
 					"name": "Filter"
-				},
-				{
-					"name": "DerivedColumn"
 				}
 			],
 			"scriptLines": [
@@ -86,8 +83,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> NHTSATXT",
 				"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
-				"Filter derive(CleanMFR_NAME = replace(MFR_NAME, '.', '')) ~> DerivedColumn",
-				"DerivedColumn sink(allowSchemaDrift: true,",
+				"Filter sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     rowUrlColumn:'MFR_NAME',",
@@ -95,8 +91,7 @@
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> Sink"
+				"     skipDuplicateMapOutputs: true) ~> Sink"
 			]
 		}
 	}
