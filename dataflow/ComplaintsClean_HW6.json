@@ -25,11 +25,7 @@
 					}
 				}
 			],
-			"transformations": [
-				{
-					"name": "DataTransformation"
-				}
-			],
+			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          CMPLID as short,",
@@ -85,8 +81,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Source",
-				"Source derive() ~> DataTransformation",
-				"DataTransformation sink(allowSchemaDrift: true,",
+				"Source sink(allowSchemaDrift: true,",
 				"     validateSchema: true,",
 				"     input(",
 				"          CMPLID as integer,",
