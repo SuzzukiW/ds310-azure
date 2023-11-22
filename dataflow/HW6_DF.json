@@ -95,10 +95,7 @@
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('key',",
-				"          0,",
-				"          MFR_NAME",
-				"     )) ~> Sink"
+				"     partitionBy('hash', 1)) ~> Sink"
 			]
 		}
 	}
