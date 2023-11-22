@@ -1,0 +1,2489 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "xfu-df-1"
+		},
+		"AzureBlobStorageLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLinkedService'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"HW4CosmosDbNoSql_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'HW4CosmosDbNoSql'"
+		},
+		"HttpLinkedService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://static.nhtsa.gov/odi/ffdd/cmpl/FLAT_CMPL.zip"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://data.koley.in/tmdb_5000_movies.json"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorageLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorageLinkedService_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HW4CosmosDbNoSql')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": "[parameters('HW4CosmosDbNoSql_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HttpLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpLinkedService_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpServer1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [],
+					"sinks": [],
+					"transformations": [],
+					"scriptLines": [
+						""
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "CMPLID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ODINO",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MFR_NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MAKETXT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MODELTXT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "YEARTXT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CRASH",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FAILDATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FIRE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "INJURED",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEATHS",
+						"type": "nvarchar"
+					},
+					{
+						"name": "COMPDESC",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CITY",
+						"type": "nvarchar"
+					},
+					{
+						"name": "STATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VIN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DATEA",
+						"type": "date"
+					},
+					{
+						"name": "LDATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MILES",
+						"type": "nvarchar"
+					},
+					{
+						"name": "OCCURENCES",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CDESCR",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CMPL_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "POLICE_RPT_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PURCH_DT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ORIG_OWNER_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ANTI_BRAKES_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CRUISE_CONT_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "NUM_CYLS",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DRIVE_TRAIN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FUEL_SYS",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FUEL_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TRANS_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VEH_SPEED",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DOT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TIRE_SIZE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LOC_OF_TIRE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TIRE_FAIL_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ORIG_EQUIP_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MANUF_DT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SEAT_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "RESTRAINT_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_TEL",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_CITY",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_STATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_ZIP",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PROD_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "REPAIRED_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MEDICAL_ATTN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VEHICLES_TOWED_YN",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "test1Complaints"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HW2input')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"container": "input"
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Optimal"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HW2output')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"foldername": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": {
+							"value": "split(dataset().foldername, '.')[0]",
+							"type": "Expression"
+						},
+						"container": "output"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HW4input')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HttpServer1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HW4output')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HW4CosmosDbNoSql",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "movies"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HW4CosmosDbNoSql')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/NHTSA_TXT')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "FLAT_CMPL.txt",
+						"container": "output"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"nullValue": "0",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQLData')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "CMPLID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ODINO",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MFR_NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MAKETXT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MODELTXT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "YEARTXT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CRASH",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FAILDATE",
+						"type": "date"
+					},
+					{
+						"name": "FIRE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "INJURED",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEATHS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COMPDESC",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CITY",
+						"type": "nvarchar"
+					},
+					{
+						"name": "STATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VIN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DATEA",
+						"type": "date"
+					},
+					{
+						"name": "LDATE",
+						"type": "date"
+					},
+					{
+						"name": "MILES",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "OCCURENCES",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CDESCR",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CMPL_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "POLICE_RPT_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PURCH_DT",
+						"type": "date"
+					},
+					{
+						"name": "ORIG_OWNER_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ANTI_BRAKES_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CRUISE_CONT_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "NUM_CYLS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DRIVE_TRAIN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FUEL_SYS",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FUEL_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TRANS_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VEH_SPEED",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DOT",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TIRE_SIZE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LOC_OF_TIRE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TIRE_FAIL_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ORIG_EQUIP_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MANUF_DT",
+						"type": "date"
+					},
+					{
+						"name": "SEAT_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "RESTRAINT_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_TEL",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_CITY",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_STATE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEALER_ZIP",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PROD_TYPE",
+						"type": "nvarchar"
+					},
+					{
+						"name": "REPAIRED_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MEDICAL_ATTN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VEHICLES_TOWED_YN",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "xfComplaints"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HW3CopyDataTextSQL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data from TXT to SQL DB",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 1
+										},
+										"sink": {
+											"name": "CMPLID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 2
+										},
+										"sink": {
+											"name": "ODINO",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 3
+										},
+										"sink": {
+											"name": "MFR_NAME",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 4
+										},
+										"sink": {
+											"name": "MAKETXT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 5
+										},
+										"sink": {
+											"name": "MODELTXT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 6
+										},
+										"sink": {
+											"name": "YEARTXT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 7
+										},
+										"sink": {
+											"name": "CRASH",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 8
+										},
+										"sink": {
+											"name": "FAILDATE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 9
+										},
+										"sink": {
+											"name": "FIRE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 10
+										},
+										"sink": {
+											"name": "INJURED",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 11
+										},
+										"sink": {
+											"name": "DEATHS",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 12
+										},
+										"sink": {
+											"name": "COMPDESC",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 13
+										},
+										"sink": {
+											"name": "CITY",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 14
+										},
+										"sink": {
+											"name": "STATE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 15
+										},
+										"sink": {
+											"name": "VIN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 16
+										},
+										"sink": {
+											"name": "DATEA",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 17
+										},
+										"sink": {
+											"name": "LDATE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 18
+										},
+										"sink": {
+											"name": "MILES",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 19
+										},
+										"sink": {
+											"name": "OCCURENCES",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 20
+										},
+										"sink": {
+											"name": "CDESCR",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 21
+										},
+										"sink": {
+											"name": "CMPL_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 22
+										},
+										"sink": {
+											"name": "POLICE_RPT_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 23
+										},
+										"sink": {
+											"name": "PURCH_DT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 24
+										},
+										"sink": {
+											"name": "ORIG_OWNER_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 25
+										},
+										"sink": {
+											"name": "ANTI_BRAKES_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 26
+										},
+										"sink": {
+											"name": "CRUISE_CONT_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 27
+										},
+										"sink": {
+											"name": "NUM_CYLS",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 28
+										},
+										"sink": {
+											"name": "DRIVE_TRAIN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 29
+										},
+										"sink": {
+											"name": "FUEL_SYS",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 30
+										},
+										"sink": {
+											"name": "FUEL_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 31
+										},
+										"sink": {
+											"name": "TRANS_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 32
+										},
+										"sink": {
+											"name": "VEH_SPEED",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 33
+										},
+										"sink": {
+											"name": "DOT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 34
+										},
+										"sink": {
+											"name": "TIRE_SIZE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 35
+										},
+										"sink": {
+											"name": "LOC_OF_TIRE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 36
+										},
+										"sink": {
+											"name": "TIRE_FAIL_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 37
+										},
+										"sink": {
+											"name": "ORIG_EQUIP_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 38
+										},
+										"sink": {
+											"name": "MANUF_DT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 39
+										},
+										"sink": {
+											"name": "SEAT_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 40
+										},
+										"sink": {
+											"name": "RESTRAINT_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 41
+										},
+										"sink": {
+											"name": "DEALER_NAME",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 42
+										},
+										"sink": {
+											"name": "DEALER_TEL",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 43
+										},
+										"sink": {
+											"name": "DEALER_CITY",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 44
+										},
+										"sink": {
+											"name": "DEALER_STATE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 45
+										},
+										"sink": {
+											"name": "DEALER_ZIP",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 46
+										},
+										"sink": {
+											"name": "PROD_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 47
+										},
+										"sink": {
+											"name": "REPAIRED_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 48
+										},
+										"sink": {
+											"name": "MEDICAL_ATTN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 49
+										},
+										"sink": {
+											"name": "VEHICLES_TOWED_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"dateTimeFormat": "yyyyMMdd"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "NHTSA_TXT",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SQLData",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-10-14T06:42:11Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/NHTSA_TXT')]",
+				"[concat(variables('factoryId'), '/datasets/SQLData')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HW4CopyDataJSON')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Data",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "CosmosDbSqlApiSink",
+								"writeBehavior": "insert"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "HW4input",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "HW4output",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-10-19T00:06:40Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/HW4input')]",
+				"[concat(variables('factoryId'), '/datasets/HW4output')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UnzipBlobFilesPipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Metadata",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "HW2input",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "*.zip"
+								}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "BinaryReadSettings"
+							}
+						}
+					},
+					{
+						"name": "ForEach",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get Metadata",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get Metadata').output.childItems",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings",
+												"compressionProperties": {
+													"type": "ZipDeflateReadSettings",
+													"preserveZipFileNameAsFolder": false
+												}
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobStorageWriteSettings",
+												"copyBehavior": "FlattenHierarchy"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "HW2input",
+											"type": "DatasetReference",
+											"parameters": {
+												"filename": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "HW2output",
+											"type": "DatasetReference",
+											"parameters": {
+												"foldername": {
+													"value": "@item.name()",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-10-10T15:23:01Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/HW2input')]",
+				"[concat(variables('factoryId'), '/datasets/HW2output')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 1
+										},
+										"sink": {
+											"name": "CMPLID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 2
+										},
+										"sink": {
+											"name": "ODINO",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 3
+										},
+										"sink": {
+											"name": "MFR_NAME",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 4
+										},
+										"sink": {
+											"name": "MAKETXT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 5
+										},
+										"sink": {
+											"name": "MODELTXT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 6
+										},
+										"sink": {
+											"name": "YEARTXT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 7
+										},
+										"sink": {
+											"name": "CRASH",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 8
+										},
+										"sink": {
+											"name": "FAILDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 9
+										},
+										"sink": {
+											"name": "FIRE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 10
+										},
+										"sink": {
+											"name": "INJURED",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 11
+										},
+										"sink": {
+											"name": "DEATHS",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 12
+										},
+										"sink": {
+											"name": "COMPDESC",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 13
+										},
+										"sink": {
+											"name": "CITY",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 14
+										},
+										"sink": {
+											"name": "STATE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 15
+										},
+										"sink": {
+											"name": "VIN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 16
+										},
+										"sink": {
+											"name": "DATEA",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 17
+										},
+										"sink": {
+											"name": "LDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 18
+										},
+										"sink": {
+											"name": "MILES",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 19
+										},
+										"sink": {
+											"name": "OCCURENCES",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 20
+										},
+										"sink": {
+											"name": "CDESCR",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 21
+										},
+										"sink": {
+											"name": "CMPL_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 22
+										},
+										"sink": {
+											"name": "POLICE_RPT_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 23
+										},
+										"sink": {
+											"name": "PURCH_DT",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 24
+										},
+										"sink": {
+											"name": "ORIG_OWNER_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 25
+										},
+										"sink": {
+											"name": "ANTI_BRAKES_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 26
+										},
+										"sink": {
+											"name": "CRUISE_CONT_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 27
+										},
+										"sink": {
+											"name": "NUM_CYLS",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 28
+										},
+										"sink": {
+											"name": "DRIVE_TRAIN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 29
+										},
+										"sink": {
+											"name": "FUEL_SYS",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 30
+										},
+										"sink": {
+											"name": "FUEL_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 31
+										},
+										"sink": {
+											"name": "TRANS_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 32
+										},
+										"sink": {
+											"name": "VEH_SPEED",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 33
+										},
+										"sink": {
+											"name": "DOT",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 34
+										},
+										"sink": {
+											"name": "TIRE_SIZE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 35
+										},
+										"sink": {
+											"name": "LOC_OF_TIRE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 36
+										},
+										"sink": {
+											"name": "TIRE_FAIL_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 37
+										},
+										"sink": {
+											"name": "ORIG_EQUIP_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 38
+										},
+										"sink": {
+											"name": "MANUF_DT",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 39
+										},
+										"sink": {
+											"name": "SEAT_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 40
+										},
+										"sink": {
+											"name": "RESTRAINT_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 41
+										},
+										"sink": {
+											"name": "DEALER_NAME",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 42
+										},
+										"sink": {
+											"name": "DEALER_TEL",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 43
+										},
+										"sink": {
+											"name": "DEALER_CITY",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 44
+										},
+										"sink": {
+											"name": "DEALER_STATE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 45
+										},
+										"sink": {
+											"name": "DEALER_ZIP",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 46
+										},
+										"sink": {
+											"name": "PROD_TYPE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 47
+										},
+										"sink": {
+											"name": "REPAIRED_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 48
+										},
+										"sink": {
+											"name": "MEDICAL_ATTN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 49
+										},
+										"sink": {
+											"name": "VEHICLES_TOWED_YN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"dateTimeFormat": "yyyyMMdd"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "NHTSA_TXT",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-10-14T07:29:58Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/NHTSA_TXT')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ComplaintsClean')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "NHTSA_TXT",
+								"type": "DatasetReference"
+							},
+							"name": "Source"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SQLData",
+								"type": "DatasetReference"
+							},
+							"name": "Sink",
+							"rejectedDataLinkedService": {
+								"referenceName": "AzureBlobStorageLinkedService",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"transformations": [
+						{
+							"name": "DataTransformation"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          CMPLID as string,",
+						"          ODINO as string,",
+						"          MFR_NAME as string,",
+						"          MAKETXT as string,",
+						"          MODELTXT as string,",
+						"          YEARTXT as string,",
+						"          CRASH as string,",
+						"          FAILDATE as string,",
+						"          FIRE as string,",
+						"          INJURED as string,",
+						"          DEATHS as string,",
+						"          COMPDESC as string,",
+						"          CITY as string,",
+						"          STATE as string,",
+						"          VIN as string,",
+						"          DATEA as string,",
+						"          LDATE as string,",
+						"          MILES as string,",
+						"          OCCURENCES as string,",
+						"          CDESCR as string,",
+						"          CMPL_TYPE as string,",
+						"          POLICE_RPT_YN as string,",
+						"          PURCH_DT as string,",
+						"          {ORIG_OWNER _YN} as string,",
+						"          ANTI_BRAKES_YN as string,",
+						"          CRUISE_CONT_YN as string,",
+						"          NUM_CYLS as string,",
+						"          DRIVE_TRAIN as string,",
+						"          FUEL_SYS as string,",
+						"          FUEL_TYPE as string,",
+						"          TRANS_TYPE as string,",
+						"          VEH_SPEED as string,",
+						"          DOT as string,",
+						"          TIRE_SIZE as string,",
+						"          LOC_OF_TIRE as string,",
+						"          {TIRE _FAIL_TYPE} as string,",
+						"          ORIG_EQUIP_YN as string,",
+						"          MANUF_DT as string,",
+						"          SEAT_TYPE as string,",
+						"          RESTRAINT_TYPE as string,",
+						"          DEALER_NAME as string,",
+						"          DEALER_TEL as string,",
+						"          {DEALER _CITY} as string,",
+						"          DEALER_STATE as string,",
+						"          {DEALER _ZIP} as string,",
+						"          PROD_TYPE as string,",
+						"          REPAIRED_YN as string,",
+						"          MEDICAL_ATTN as string,",
+						"          VEHICLES_TOWED_YN as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Source",
+						"Source derive(DATEA = toDate(DATEA, 'yyyyMMdd')) ~> DataTransformation",
+						"DataTransformation sink(allowSchemaDrift: true,",
+						"     validateSchema: true,",
+						"     input(",
+						"          CMPLID as integer,",
+						"          ODINO as string,",
+						"          MFR_NAME as string,",
+						"          MAKETXT as string,",
+						"          MODELTXT as string,",
+						"          YEARTXT as string,",
+						"          CRASH as string,",
+						"          FAILDATE as date,",
+						"          FIRE as string,",
+						"          INJURED as integer,",
+						"          DEATHS as integer,",
+						"          COMPDESC as string,",
+						"          CITY as string,",
+						"          STATE as string,",
+						"          VIN as string,",
+						"          DATEA as date,",
+						"          LDATE as date,",
+						"          MILES as integer,",
+						"          OCCURENCES as integer,",
+						"          CDESCR as string,",
+						"          CMPL_TYPE as string,",
+						"          POLICE_RPT_YN as string,",
+						"          PURCH_DT as date,",
+						"          ORIG_OWNER_YN as string,",
+						"          ANTI_BRAKES_YN as string,",
+						"          CRUISE_CONT_YN as string,",
+						"          NUM_CYLS as integer,",
+						"          DRIVE_TRAIN as string,",
+						"          FUEL_SYS as string,",
+						"          FUEL_TYPE as string,",
+						"          TRANS_TYPE as string,",
+						"          VEH_SPEED as integer,",
+						"          DOT as string,",
+						"          TIRE_SIZE as string,",
+						"          LOC_OF_TIRE as string,",
+						"          TIRE_FAIL_TYPE as string,",
+						"          ORIG_EQUIP_YN as string,",
+						"          MANUF_DT as date,",
+						"          SEAT_TYPE as string,",
+						"          RESTRAINT_TYPE as string,",
+						"          DEALER_NAME as string,",
+						"          DEALER_TEL as string,",
+						"          DEALER_CITY as string,",
+						"          DEALER_STATE as string,",
+						"          DEALER_ZIP as string,",
+						"          PROD_TYPE as string,",
+						"          REPAIRED_YN as string,",
+						"          MEDICAL_ATTN as string,",
+						"          VEHICLES_TOWED_YN as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'allErrors',",
+						"     transactionCommit: 'single',",
+						"     reportSuccessOnError: false) ~> Sink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/NHTSA_TXT')]",
+				"[concat(variables('factoryId'), '/datasets/SQLData')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TXTtoSQLComplaints')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Clean and Put Data into SQL Database",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "ComplaintsClean",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"Source": {},
+									"Sink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 16,
+								"computeType": "General"
+							},
+							"traceLevel": "None",
+							"cacheSinks": {
+								"firstRowOnly": true
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-10-11T05:42:07Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/ComplaintsClean')]"
+			]
+		}
+	]
+}
