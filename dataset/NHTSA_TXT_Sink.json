@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "nhtsatxt.parquet",
+				"fileName": "@{concat(item().YourColumnName, '.parquet')}",
 				"fileSystem": "hw6output"
 			},
 			"compressionCodec": "snappy"
