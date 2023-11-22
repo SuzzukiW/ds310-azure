@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "xfu-df-1"
 		},
+		"ADLS_accountKey": {
+			"value": ""
+		},
 		"AzureBlobStorageLinkedService_connectionString": {
 			"value": ""
 		},
@@ -13,6 +16,9 @@
 		},
 		"HW4CosmosDbNoSql_connectionString": {
 			"value": ""
+		},
+		"ADLS_properties_typeProperties_url": {
+			"value": "https://demo1002.dfs.core.windows.net/"
 		},
 		"HttpLinkedService_properties_typeProperties_url": {
 			"value": "https://static.nhtsa.gov/odi/ffdd/cmpl/FLAT_CMPL.zip"

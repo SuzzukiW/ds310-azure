@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "xfu-df-1"
 		},
+		"ADLS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLS'"
+		},
 		"AzureBlobStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLinkedService'"
@@ -18,6 +22,10 @@
 		"HW4CosmosDbNoSql_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'HW4CosmosDbNoSql'"
+		},
+		"ADLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://demo1002.dfs.core.windows.net/"
 		},
 		"HttpLinkedService_properties_typeProperties_url": {
 			"type": "string",
@@ -54,6 +62,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ADLS_accountKey": {
+						"value": "[parameters('ADLS_accountKey')]"
+					},
 					"AzureBlobStorageLinkedService_connectionString": {
 						"value": "[parameters('AzureBlobStorageLinkedService_connectionString')]"
 					},
@@ -62,6 +73,9 @@
 					},
 					"HW4CosmosDbNoSql_connectionString": {
 						"value": "[parameters('HW4CosmosDbNoSql_connectionString')]"
+					},
+					"ADLS_properties_typeProperties_url": {
+						"value": "[parameters('ADLS_properties_typeProperties_url')]"
 					},
 					"HttpLinkedService_properties_typeProperties_url": {
 						"value": "[parameters('HttpLinkedService_properties_typeProperties_url')]"
@@ -72,6 +86,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "xfu-df-1_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'xfu-df-1_ArmTemplate_0')]"
+			]
 		}
 	]
 }
