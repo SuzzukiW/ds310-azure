@@ -86,7 +86,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> NHTSATXT",
 				"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
-				"Filter derive() ~> DerivedColumn",
+				"Filter derive(CleanMFR_NAME = replace(MFR_NAME, '.', '')) ~> DerivedColumn",
 				"DerivedColumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
