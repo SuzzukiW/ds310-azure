@@ -21,7 +21,11 @@
 					"name": "Sink"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "filter1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          CMPLID as integer,",
@@ -78,7 +82,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> NHTSATXT",
-				"NHTSATXT sink(allowSchemaDrift: true,",
+				"NHTSATXT filter(ERROR_FUNCTION('')) ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     umask: 0022,",
@@ -88,7 +93,7 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('key',",
 				"          0,",
-				"          ERROR_FUNCTION('')",
+				"          MFR_NAME",
 				"     )) ~> Sink"
 			]
 		}
