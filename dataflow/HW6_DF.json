@@ -90,7 +90,7 @@
 				"DerivedColumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     partitionFileNames:[''],",
+				"     rowUrlColumn:'MFR_NAME',",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
