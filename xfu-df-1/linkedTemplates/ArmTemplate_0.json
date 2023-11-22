@@ -691,8 +691,11 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "nhtsatxt.parquet",
-						"fileSystem": "hw6output"
+						"fileName": {
+							"value": "@{concat('MFR_NAME', '.parquet')}",
+							"type": "Expression"
+						},
+						"fileSystem": "hw6output1"
 					},
 					"compressionCodec": "snappy"
 				},
