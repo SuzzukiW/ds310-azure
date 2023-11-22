@@ -32,9 +32,9 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          {_col0_} as short,",
-				"          {_col1_} as integer,",
-				"          {_col2_} as string,",
+				"          CMPLID as short,",
+				"          ODINO as integer,",
+				"          MFR_NAME as string,",
 				"          {_col3_} as string,",
 				"          {_col4_} as string,",
 				"          {_col5_} as short,",
