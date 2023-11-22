@@ -14,7 +14,11 @@
 			],
 			"sinks": [
 				{
-					"name": "sink1"
+					"dataset": {
+						"referenceName": "NHTSATXT",
+						"type": "DatasetReference"
+					},
+					"name": "Sink"
 				}
 			],
 			"transformations": [],
@@ -75,8 +79,12 @@
 				"     ignoreNoFilesFound: false) ~> NHTSATXT",
 				"NHTSATXT sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> Sink"
 			]
 		}
 	}
