@@ -586,7 +586,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "NHTSA_TXT",
+						"referenceName": "NHTSA_TXT_Source",
 						"type": "DatasetReference"
 					}
 				],

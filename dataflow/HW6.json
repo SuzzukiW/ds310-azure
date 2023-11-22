@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "NHTSA_TXT",
+						"referenceName": "NHTSA_TXT_Source",
 						"type": "DatasetReference"
 					},
 					"name": "NHTSATXT"
@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "NHTSATXT",
+						"referenceName": "NHTSA_TXT_Sink",
 						"type": "DatasetReference"
 					},
 					"name": "Sink"
