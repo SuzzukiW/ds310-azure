@@ -10,7 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "@{concat(item().YourColumnName, '.parquet')}",
+				"fileName": {
+					"value": "@{concat('MFR_NAME', '.parquet')}",
+					"type": "Expression"
+				},
 				"fileSystem": "hw6output"
 			},
 			"compressionCodec": "snappy"
