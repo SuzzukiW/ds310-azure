@@ -24,6 +24,9 @@
 			"transformations": [
 				{
 					"name": "Filter"
+				},
+				{
+					"name": "DerivedColumn"
 				}
 			],
 			"scriptLines": [
@@ -83,7 +86,8 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> NHTSATXT",
 				"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
-				"Filter sink(allowSchemaDrift: true,",
+				"Filter derive() ~> DerivedColumn",
+				"DerivedColumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     umask: 0022,",
