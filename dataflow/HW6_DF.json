@@ -23,7 +23,7 @@
 			],
 			"transformations": [
 				{
-					"name": "filter1"
+					"name": "Filter"
 				}
 			],
 			"scriptLines": [
@@ -82,8 +82,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> NHTSATXT",
-				"NHTSATXT filter(ERROR_FUNCTION('')) ~> filter1",
-				"filter1 sink(allowSchemaDrift: true,",
+				"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
+				"Filter sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     umask: 0022,",
