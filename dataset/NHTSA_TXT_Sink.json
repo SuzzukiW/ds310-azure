@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "@{replace(item().MFR_NAME, '.', '')}.parquet",
 				"fileSystem": "hw6output"
 			},
 			"compressionCodec": "snappy"
