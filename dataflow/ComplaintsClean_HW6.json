@@ -85,7 +85,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Source",
-				"Source derive(DATEA = toDate(DATEA, 'yyyyMMdd')) ~> DataTransformation",
+				"Source derive() ~> DataTransformation",
 				"DataTransformation sink(allowSchemaDrift: true,",
 				"     validateSchema: true,",
 				"     input(",
