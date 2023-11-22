@@ -16,7 +16,7 @@
 				},
 				"fileSystem": "hw6output1"
 			},
-			"compressionCodec": "none"
+			"compressionCodec": "snappy"
 		},
 		"schema": []
 	}
