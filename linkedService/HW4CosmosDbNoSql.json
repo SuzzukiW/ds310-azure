@@ -1,0 +1,12 @@
+{
+	"name": "HW4CosmosDbNoSql",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "CosmosDb",
+		"typeProperties": {
+			"connectionString": "AccountEndpoint=https://xfds310cosmosdb.documents.azure.com:443/;Database=ds310;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDM0RTRCMzg0LTNEQ0EtNDE3MC05NThCLUVDQUVFQkIyQjE0Ql85NTMxZjNmZS1iM2MyLTRmODEtYThkMC0yZDBlYmQ3Zjc2ODQiDQp9"
+		}
+	}
+}

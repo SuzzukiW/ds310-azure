@@ -1,0 +1,9 @@
+{
+	"name": "xfu-df-1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "88de30f8-49b5-4202-8380-7f0c955dd23c",
+		"tenantId": "d57d32cc-c121-488f-b07b-dfe705680c71"
+	}
+}
