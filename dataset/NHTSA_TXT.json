@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText",
+	"name": "NHTSA_TXT",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorageLinkedService",

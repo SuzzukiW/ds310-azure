@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DelimitedText",
+						"referenceName": "NHTSA_TXT",
 						"type": "DatasetReference"
 					},
 					"name": "Source"
