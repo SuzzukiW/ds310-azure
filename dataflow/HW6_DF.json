@@ -86,7 +86,7 @@
 				"Filter sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     rowUrlColumn:(@{concat(MFR_NAME, '.parquet')}),",
+				"     rowUrlColumn:(concat(MFR_NAME, '.parquet')),",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
