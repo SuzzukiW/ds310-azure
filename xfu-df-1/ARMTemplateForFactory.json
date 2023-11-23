@@ -1512,8 +1512,11 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": ".parquet",
-						"fileSystem": "hw6output1"
+						"fileName": {
+							"value": "concat(MFR_NAME, '.parquet')",
+							"type": "Expression"
+						},
+						"fileSystem": "hw6output"
 					},
 					"compressionCodec": "snappy"
 				},
