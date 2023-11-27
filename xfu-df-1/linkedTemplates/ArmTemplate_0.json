@@ -1975,7 +1975,7 @@
 						"Filter sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
-						"     rowUrlColumn:'MFR_NAME',",
+						"     filePattern:'concat(MFR_NAME, \\'.parquet\\')',",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
