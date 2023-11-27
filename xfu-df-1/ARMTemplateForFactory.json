@@ -1516,7 +1516,7 @@
 							"value": "concat(MFR_NAME, '.parquet')",
 							"type": "Expression"
 						},
-						"fileSystem": "hw6output"
+						"fileSystem": "hw6output1"
 					},
 					"compressionCodec": "snappy"
 				},
