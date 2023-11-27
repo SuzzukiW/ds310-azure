@@ -1512,10 +1512,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "concat(MFR_NAME, '.parquet')",
-							"type": "Expression"
-						},
 						"fileSystem": "hw6output"
 					},
 					"compressionCodec": "snappy"
@@ -2071,7 +2067,7 @@
 						"Filter sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
-						"     rowUrlColumn:'concat(MFR_NAME, \\'.parquet\\')',",
+						"     rowUrlColumn:'MFR_NAME',",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
