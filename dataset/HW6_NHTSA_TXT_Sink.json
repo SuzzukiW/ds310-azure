@@ -2,7 +2,7 @@
 	"name": "HW6_NHTSA_TXT_Sink",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ADLS",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
