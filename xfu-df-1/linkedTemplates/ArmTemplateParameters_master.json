@@ -11,6 +11,9 @@
 		"AzureBlobStorageLinkedService_connectionString": {
 			"value": ""
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
@@ -19,6 +22,9 @@
 		},
 		"ADLS_properties_typeProperties_url": {
 			"value": "https://demo1002.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://teststoragexiang.dfs.core.windows.net/"
 		},
 		"HttpLinkedService_properties_typeProperties_url": {
 			"value": "https://static.nhtsa.gov/odi/ffdd/cmpl/FLAT_CMPL.zip"
