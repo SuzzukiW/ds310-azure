@@ -1738,6 +1738,30 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "hw6"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ADLS')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -2021,7 +2045,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "HW6_NHTSA_TXT_Sink",
+								"referenceName": "Parquet1",
 								"type": "DatasetReference"
 							},
 							"name": "Sink"
@@ -2097,8 +2121,7 @@
 						"     validateSchema: false,",
 						"     format: 'parquet',",
 						"     rowUrlColumn:'FileName',",
-						"     truncate: true,",
-						"     umask: 0022,",
+						"     umask: 0222,",
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
@@ -2108,7 +2131,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/NHTSA_TXT_Source')]",
-				"[concat(variables('factoryId'), '/datasets/HW6_NHTSA_TXT_Sink')]"
+				"[concat(variables('factoryId'), '/datasets/Parquet1')]"
 			]
 		}
 	]

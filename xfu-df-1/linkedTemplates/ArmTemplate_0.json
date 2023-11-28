@@ -934,6 +934,30 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "hw6"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/HW3CopyDataTextSQL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1742,168 +1766,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/HW2input')]",
 				"[concat(variables('factoryId'), '/datasets/HW2output')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ComplaintsClean')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "NHTSA_TXT_Source",
-								"type": "DatasetReference"
-							},
-							"name": "Source"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "NHTSA_SQL_Data",
-								"type": "DatasetReference"
-							},
-							"name": "Sink",
-							"rejectedDataLinkedService": {
-								"referenceName": "AzureBlobStorageLinkedService",
-								"type": "LinkedServiceReference"
-							}
-						}
-					],
-					"transformations": [
-						{
-							"name": "DataTransformation"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          CMPLID as string,",
-						"          ODINO as string,",
-						"          MFR_NAME as string,",
-						"          MAKETXT as string,",
-						"          MODELTXT as string,",
-						"          YEARTXT as string,",
-						"          CRASH as string,",
-						"          FAILDATE as string,",
-						"          FIRE as string,",
-						"          INJURED as string,",
-						"          DEATHS as string,",
-						"          COMPDESC as string,",
-						"          CITY as string,",
-						"          STATE as string,",
-						"          VIN as string,",
-						"          DATEA as string,",
-						"          LDATE as string,",
-						"          MILES as string,",
-						"          OCCURENCES as string,",
-						"          CDESCR as string,",
-						"          CMPL_TYPE as string,",
-						"          POLICE_RPT_YN as string,",
-						"          PURCH_DT as string,",
-						"          {ORIG_OWNER _YN} as string,",
-						"          ANTI_BRAKES_YN as string,",
-						"          CRUISE_CONT_YN as string,",
-						"          NUM_CYLS as string,",
-						"          DRIVE_TRAIN as string,",
-						"          FUEL_SYS as string,",
-						"          FUEL_TYPE as string,",
-						"          TRANS_TYPE as string,",
-						"          VEH_SPEED as string,",
-						"          DOT as string,",
-						"          TIRE_SIZE as string,",
-						"          LOC_OF_TIRE as string,",
-						"          {TIRE _FAIL_TYPE} as string,",
-						"          ORIG_EQUIP_YN as string,",
-						"          MANUF_DT as string,",
-						"          SEAT_TYPE as string,",
-						"          RESTRAINT_TYPE as string,",
-						"          DEALER_NAME as string,",
-						"          DEALER_TEL as string,",
-						"          {DEALER _CITY} as string,",
-						"          DEALER_STATE as string,",
-						"          {DEALER _ZIP} as string,",
-						"          PROD_TYPE as string,",
-						"          REPAIRED_YN as string,",
-						"          MEDICAL_ATTN as string,",
-						"          VEHICLES_TOWED_YN as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> Source",
-						"Source derive(DATEA = toDate(DATEA, 'yyyyMMdd')) ~> DataTransformation",
-						"DataTransformation sink(allowSchemaDrift: true,",
-						"     validateSchema: true,",
-						"     input(",
-						"          CMPLID as integer,",
-						"          ODINO as string,",
-						"          MFR_NAME as string,",
-						"          MAKETXT as string,",
-						"          MODELTXT as string,",
-						"          YEARTXT as string,",
-						"          CRASH as string,",
-						"          FAILDATE as date,",
-						"          FIRE as string,",
-						"          INJURED as integer,",
-						"          DEATHS as integer,",
-						"          COMPDESC as string,",
-						"          CITY as string,",
-						"          STATE as string,",
-						"          VIN as string,",
-						"          DATEA as date,",
-						"          LDATE as date,",
-						"          MILES as integer,",
-						"          OCCURENCES as integer,",
-						"          CDESCR as string,",
-						"          CMPL_TYPE as string,",
-						"          POLICE_RPT_YN as string,",
-						"          PURCH_DT as date,",
-						"          ORIG_OWNER_YN as string,",
-						"          ANTI_BRAKES_YN as string,",
-						"          CRUISE_CONT_YN as string,",
-						"          NUM_CYLS as integer,",
-						"          DRIVE_TRAIN as string,",
-						"          FUEL_SYS as string,",
-						"          FUEL_TYPE as string,",
-						"          TRANS_TYPE as string,",
-						"          VEH_SPEED as integer,",
-						"          DOT as string,",
-						"          TIRE_SIZE as string,",
-						"          LOC_OF_TIRE as string,",
-						"          TIRE_FAIL_TYPE as string,",
-						"          ORIG_EQUIP_YN as string,",
-						"          MANUF_DT as date,",
-						"          SEAT_TYPE as string,",
-						"          RESTRAINT_TYPE as string,",
-						"          DEALER_NAME as string,",
-						"          DEALER_TEL as string,",
-						"          DEALER_CITY as string,",
-						"          DEALER_STATE as string,",
-						"          DEALER_ZIP as string,",
-						"          PROD_TYPE as string,",
-						"          REPAIRED_YN as string,",
-						"          MEDICAL_ATTN as string,",
-						"          VEHICLES_TOWED_YN as string",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'allErrors',",
-						"     transactionCommit: 'single',",
-						"     reportSuccessOnError: false) ~> Sink"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/NHTSA_TXT_Source')]",
-				"[concat(variables('factoryId'), '/datasets/NHTSA_SQL_Data')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
 			]
 		}
 	]
