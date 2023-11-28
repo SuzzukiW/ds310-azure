@@ -466,6 +466,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": ".parquet",
 						"fileSystem": "hw6output"
 					},
 					"compressionCodec": "snappy"
@@ -1969,7 +1970,8 @@
 						"     allowSchemaDrift: false,",
 						"     validateSchema: false,",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> NHTSATXT",
+						"     format: 'table',",
+						"     partitionBy('hash', 1)) ~> NHTSATXT",
 						"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
 						"Filter derive(FileName = MFR_NAME + '.parquet') ~> DerivedColumn",
 						"DerivedColumn sink(allowSchemaDrift: true,",
