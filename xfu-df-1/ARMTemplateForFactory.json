@@ -719,7 +719,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/HW6')]",
+			"name": "[concat(parameters('factoryName'), '/HW6ToParquet')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1274,6 +1274,30 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/HW6_NHTSA_TXT_Sink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "hw6output1"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/NHTSA_SQL_Data')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1496,30 +1520,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/NHTSA_TXT_Sink')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLS",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "hw6output"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLS')]"
 			]
 		},
 		{
@@ -1996,7 +1996,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "NHTSA_TXT_Sink",
+								"referenceName": "HW6_NHTSA_TXT_Sink",
 								"type": "DatasetReference"
 							},
 							"name": "Sink"
@@ -2005,6 +2005,9 @@
 					"transformations": [
 						{
 							"name": "Filter"
+						},
+						{
+							"name": "DerivedColumn"
 						}
 					],
 					"scriptLines": [
@@ -2064,10 +2067,11 @@
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> NHTSATXT",
 						"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
-						"Filter sink(allowSchemaDrift: true,",
+						"Filter derive(FileName = MFR_NAME + '.parquet') ~> DerivedColumn",
+						"DerivedColumn sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
-						"     rowUrlColumn:'MFR_NAME',",
+						"     rowUrlColumn:'FileName',",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
@@ -2078,7 +2082,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/NHTSA_SQL_Data')]",
-				"[concat(variables('factoryId'), '/datasets/NHTSA_TXT_Sink')]"
+				"[concat(variables('factoryId'), '/datasets/HW6_NHTSA_TXT_Sink')]"
 			]
 		}
 	]
