@@ -87,7 +87,7 @@
 				"     format: 'table',",
 				"     partitionBy('hash', 1)) ~> NHTSATXT",
 				"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
-				"Filter derive(FileName = MFR_NAME + '.parquet') ~> DerivedColumn",
+				"Filter derive(FileName = concat(MFR_NAME, '.parquet')) ~> DerivedColumn",
 				"DerivedColumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
