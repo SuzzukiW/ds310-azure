@@ -1,5 +1,5 @@
 {
-	"name": "NHTSA_TXT_Sink",
+	"name": "HW6_NHTSA_TXT_Sink",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLS",

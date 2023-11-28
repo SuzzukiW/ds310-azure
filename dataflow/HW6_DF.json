@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "NHTSA_TXT_Sink",
+						"referenceName": "HW6_NHTSA_TXT_Sink",
 						"type": "DatasetReference"
 					},
 					"name": "Sink"
@@ -90,7 +90,7 @@
 				"DerivedColumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     rowUrlColumn:'concat(MFR_NAME, \\'.parquet\\')',",
+				"     rowUrlColumn:'FileName',",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
