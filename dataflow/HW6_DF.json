@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "HW6_NHTSA_TXT_Sink",
+						"referenceName": "Parquet1",
 						"type": "DatasetReference"
 					},
 					"name": "Sink"
