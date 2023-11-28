@@ -1286,8 +1286,7 @@
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "hw6output"
+						"type": "AzureBlobFSLocation"
 					},
 					"compressionCodec": "snappy"
 				},
