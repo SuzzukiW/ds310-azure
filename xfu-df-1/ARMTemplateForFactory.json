@@ -1286,7 +1286,8 @@
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation"
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "hw6"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -2071,6 +2072,7 @@
 						"     validateSchema: false,",
 						"     format: 'parquet',",
 						"     rowUrlColumn:'FileName',",
+						"     truncate: true,",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
