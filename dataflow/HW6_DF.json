@@ -91,6 +91,7 @@
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     rowUrlColumn:'FileName',",
+				"     truncate: true,",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
