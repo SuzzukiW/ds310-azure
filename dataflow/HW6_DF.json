@@ -85,7 +85,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     partitionBy('hash', 1)) ~> NHTSATXT",
-				"NHTSATXT filter(!endsWith(MFR_NAME, '.')) ~> Filter",
+				"NHTSATXT filter(!endsWith(Column_3, '.')) ~> Filter",
 				"Filter derive(FileName = concat(Column_3, '.parquet')) ~> DerivedColumn",
 				"DerivedColumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
