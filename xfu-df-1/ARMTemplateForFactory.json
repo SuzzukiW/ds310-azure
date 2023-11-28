@@ -1287,7 +1287,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "hw6output1"
+						"fileSystem": "hw6output"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -2072,7 +2072,7 @@
 						"     validateSchema: false,",
 						"     format: 'parquet',",
 						"     rowUrlColumn:'FileName',",
-						"     umask: 0022,",
+						"     umask: 0222,",
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
