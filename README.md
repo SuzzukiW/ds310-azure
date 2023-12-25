@@ -1,1 +1,1 @@
-# ds310-azure
+# DS 310 Azure Resource
